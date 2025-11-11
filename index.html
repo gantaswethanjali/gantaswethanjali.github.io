@@ -1,106 +1,292 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Swethanjali Ganta | Data & AI Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Swethanjali Ganta • Data & AI Portfolio</title>
+  <meta name="description" content="Portfolio of Swethanjali Ganta — Data Analyst & AI/BI Specialist. Dashboards in Tableau, AI/NLP projects, and web apps." />
+  <meta property="og:title" content="Swethanjali Ganta • Data & AI Portfolio" />
+  <meta property="og:description" content="Dashboards, AI/NLP builds, and web applications." />
+  <meta name="theme-color" content="#0d6efd" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
   <style>
-    body {font-family: Arial, sans-serif; margin: 0; padding: 0; background: #fafafa; color: #222;}
-    header {background: #222; color: white; padding: 2rem; text-align: center;}
-    section {padding: 2rem 3rem;}
-    h1, h2 {color: #0d6efd;}
-    .projects {display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;}
-    .card {background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);}
-    a {color: #0d6efd; text-decoration: none;}
-    a:hover {text-decoration: underline;}
+    :root {
+      --bg: #0b0c0f;
+      --surface: #111319;
+      --card: #151823;
+      --text: #e6e8ee;
+      --muted: #a4acc4;
+      --brand: #0d6efd;
+      --brand-2: #7aa2ff;
+      --ok: #10b981; /* emerald */
+      --warn: #f59e0b; /* amber */
+      --ring: 0 0 0 3px rgba(13,110,253,.35);
+      --radius: 18px;
+      --shadow: 0 12px 30px rgba(0,0,0,.25), 0 2px 6px rgba(0,0,0,.2);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #fafbff;
+        --surface: #ffffff;
+        --card: #ffffff;
+        --text: #111827;
+        --muted: #475569;
+        --brand: #0d6efd;
+        --brand-2: #1849ff;
+        --shadow: 0 10px 24px rgba(2,6,23,.08), 0 2px 6px rgba(2,6,23,.05);
+      }
+    }
+    * { box-sizing: border-box }
+    html, body { height: 100% }
+    body {
+      margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color: var(--text);
+      background: radial-gradient(1200px 600px at 10% -10%, rgba(13,110,253,.15), transparent 60%),
+                  radial-gradient(1200px 600px at 110% 10%, rgba(122,162,255,.15), transparent 60%),
+                  var(--bg);
+    }
+    a { color: var(--brand); text-decoration: none }
+    a:hover { text-decoration: underline }
+    .container { width: min(1200px, 92%); margin-inline: auto }
+    header.site {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(120%) blur(10px);
+      background: color-mix(in oklab, var(--surface) 80%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--text) 10%, transparent);
+    }
+    .site-inner { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; padding: .9rem 0 }
+    .brand { display: flex; align-items: center; gap: .8rem; font-weight: 700 }
+    .logo {
+      inline-size: 38px; block-size: 38px; border-radius: 12px; background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      display: grid; place-items: center; color: #fff; box-shadow: var(--shadow);
+      font-family: "JetBrains Mono", monospace; font-weight: 700; letter-spacing: .5px;
+    }
+    nav a { margin-inline: 0 .9rem; padding: .4rem .7rem; border-radius: 10px; font-weight: 600; color: var(--text) }
+    nav a:hover { background: color-mix(in oklab, var(--text) 10%, transparent) }
+
+    .hero { padding: 5.5rem 0 3rem }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 2rem; align-items: center }
+    @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr } }
+    .hero h1 { font-size: clamp(2rem, 3vw + 1rem, 3.2rem); margin: 0 0 .6rem; line-height: 1.1 }
+    .lead { font-size: 1.1rem; color: var(--muted) }
+    .pillbar { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1.2rem 0 0 }
+    .pill { background: color-mix(in oklab, var(--text) 10%, transparent); color: var(--text); padding: .45rem .7rem; border-radius: 999px; font-size: .9rem }
+    .cta { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem }
+    .btn { display: inline-flex; align-items: center; gap: .6rem; border-radius: 12px; padding: .7rem 1rem; font-weight: 700; border: 1px solid transparent }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; box-shadow: var(--shadow) }
+    .btn.ghost { background: transparent; color: var(--text); border-color: color-mix(in oklab, var(--text) 20%, transparent) }
+    .btn:focus-visible { outline: none; box-shadow: var(--ring) }
+
+    section { padding: 2.5rem 0 }
+    section h2 { font-size: 1.7rem; margin: 0 0 1.2rem }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.4rem }
+    .card { grid-column: span 6; background: var(--card); border: 1px solid color-mix(in oklab, var(--text) 8%, transparent); border-radius: var(--radius); padding: 1.4rem; box-shadow: var(--shadow); transition: transform .18s ease, box-shadow .18s ease }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(0,0,0,.25) }
+    @media (max-width: 900px) { .card { grid-column: span 12 } }
+    .card h3 { margin: .1rem 0 .6rem; font-size: 1.15rem }
+    .card p { color: var(--muted); margin: .6rem 0 1rem; line-height: 1.6 }
+    .tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .6rem }
+    .tag { font-size: .8rem; padding: .3rem .55rem; border-radius: 999px; background: color-mix(in oklab, var(--text) 12%, transparent); color: var(--text) }
+    .actions { display: flex; gap: .6rem; flex-wrap: wrap }
+    .btn.small { padding: .5rem .75rem; border-radius: 10px; font-weight: 600 }
+
+    .about { background: color-mix(in oklab, var(--text) 6%, transparent); border: 1px solid color-mix(in oklab, var(--text) 8%, transparent); border-radius: var(--radius); padding: 1.6rem }
+    footer { padding: 2.5rem 0 4rem; color: var(--muted) }
+    .footlinks { display: flex; gap: 1rem; flex-wrap: wrap }
+
+    /* Accessibility helpers */
+    .visually-hidden { position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px,1px,1px,1px) }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Swethanjali Ganta</h1>
-    <p>Data Analyst | AI & Business Intelligence Specialist</p>
-    <p><a href="mailto:gswethanjali@gmail.com" style="color:#fff;">gswethanjali@gmail.com</a> | <a href="https://www.linkedin.com/in/swethanjali-ganta-857180234/" style="color:#fff;">LinkedIn</a> | <a href="https://github.com/gantaswethanjali" style="color:#fff;">GitHub</a></p>
+  <header class="site" role="banner">
+    <div class="container site-inner">
+      <a class="brand" href="#top" aria-label="Home">
+        <span class="logo" aria-hidden="true">SG</span>
+        <span>Swethanjali Ganta</span>
+      </a>
+      <nav aria-label="Primary">
+        <a href="#dashboards">Dashboards</a>
+        <a href="#ai-nlp">AI & NLP</a>
+        <a href="#webapps">Web Apps</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
   </header>
 
-  <section>
-    <h2>📊 Tableau Dashboards</h2>
-    <div class="projects">
-       <div class="card">
-        <h3>Energy Transition Market Pulse Dashboard</h3>
-        <p>Developed an interactive **investment map** showing how capital flows across the European energy transition ecosystem.  
-- Mapped **deals and project investments** by country, using bubble size and color to represent **total investment ($M)**.  
-- Enabled filtering by **Type, Subsector, Region**, and **Impact**, providing a geographic view of renewable energy activity.  
-- Built **tooltips** to display **total value**, **event count**, and **top contributing companies** dynamically.  
-- Combined insights from policy, deals, and technology data — transforming static data into actionable visuals for market intelligence.</p>
-        <a href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/EnergyTransitionMarketPulseRegionSubsectorImpact/EnergyTransitionMarketPulseRegionSubsectorImpact">View Dashboard →</a>
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <h1>Data Analyst & AI/BI Specialist</h1>
+          <p class="lead">Turning complex datasets into clean, decision‑ready insight. Tableau • Power BI • Python • SQL • NLP • Computer Vision.</p>
+          <div class="pillbar" aria-label="Key skills">
+            <span class="pill">Tableau</span>
+            <span class="pill">Power BI</span>
+            <span class="pill">Python</span>
+            <span class="pill">SQL</span>
+            <span class="pill">Hugging Face</span>
+            <span class="pill">TensorFlow</span>
+          </div>
+          <div class="cta">
+            <a class="btn primary" href="mailto:gswethanjali@gmail.com" rel="noopener noreferrer">Contact</a>
+            <a class="btn ghost" href="https://www.linkedin.com/in/swethanjali-ganta-857180234/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn ghost" href="https://github.com/gantaswethanjali" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
       </div>
-       <div class="card">
-        <h3>Operational Resilience Dashboard | FCA/PRA Framework</h3>
-        <p>Interactive Tableau dashboard visualising key Operational Resilience metrics — including incident trends, MTTR, service breaches, and supplier risk.</p>
-        <a href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/OperationalResilienceDashboard/OperationalResilienceOverview" target="_blank">View Dashboard →</a>
+    </section>
+
+    <section id="dashboards" aria-labelledby="dashboards-title">
+      <div class="container">
+        <h2 id="dashboards-title">📊 Tableau Dashboards</h2>
+        <div class="grid">
+          <article class="card" aria-labelledby="etmp">
+            <h3 id="etmp">Energy Transition Market Pulse</h3>
+            <p>Interactive investment map tracking capital flows across the European energy transition ecosystem.</p>
+            <ul>
+              <li>Deals & project investments by country using proportional bubbles (total $M).</li>
+              <li>Filters by Type, Subsector, Region, and Impact.</li>
+              <li>Dynamic tooltips for total value, event count, and top contributors.</li>
+              <li>Combined policy, deals, and technology data for market intelligence.</li>
+            </ul>
+            <div class="tags">
+              <span class="tag">Tableau</span><span class="tag">Geospatial</span><span class="tag">Energy</span>
+            </div>
+            <div class="actions">
+              <a class="btn small primary" href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/EnergyTransitionMarketPulseRegionSubsectorImpact/EnergyTransitionMarketPulseRegionSubsectorImpact" target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Operational Resilience • FCA/PRA</h3>
+            <p>Operational resilience metrics: incident trends, MTTR, service breaches, and supplier risk.</p>
+            <div class="tags"><span class="tag">Tableau</span><span class="tag">Risk</span><span class="tag">Ops</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/OperationalResilienceDashboard/OperationalResilienceOverview" target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Retail Sales & Customer Insights</h3>
+            <p>Sales, profit, and product trends across regions with drill‑downs for category and segment.</p>
+            <div class="tags"><span class="tag">Tableau</span><span class="tag">Retail</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/RetailSalesPerformanceDashboard_17608974359950/RetailSalesPerformanceDashboard" target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Employee Performance & Engagement</h3>
+            <p>HR analytics: performance, training coverage, and satisfaction metrics with trend analysis.</p>
+            <div class="tags"><span class="tag">Tableau</span><span class="tag">HR</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://public.tableau.com/views/EmployeePerformanceDashboard_17608991504230/Employee?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>Customer Insights & Conversion</h3>
+            <p>Channel performance across Organic, Paid, Email, and Retail. KPIs: Conversion Rate, AOV, Repeat Share.</p>
+            <div class="tags"><span class="tag">Tableau</span><span class="tag">Marketing</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/CustomerInsightsConversionDashboard/Dashboard1" target="_blank" rel="noopener noreferrer">View Dashboard →</a>
+            </div>
+          </article>
+        </div>
       </div>
-      <div class="card">
-        <h3>Retail Sales & Customer Insights Dashboard</h3>
-        <p>Interactive Tableau dashboard analyzing sales, profit, and product trends across regions.</p>
-        <a href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/RetailSalesPerformanceDashboard_17608974359950/RetailSalesPerformanceDashboard" target="_blank">View Dashboard →</a>
+    </section>
+
+    <section id="ai-nlp" aria-labelledby="ai-title">
+      <div class="container">
+        <h2 id="ai-title">🤖 AI & NLP Projects</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Fine‑Tuned Chatbot (aboojin dataset)</h3>
+            <p>Fine‑tuned LLaMA‑2 using Hugging Face pipelines; improved intent accuracy by ~30%.</p>
+            <div class="tags"><span class="tag">LLaMA‑2</span><span class="tag">Hugging Face</span><span class="tag">NLP</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://github.com/gantaswethanjali/Fine-Tuning-using-Hugging-Face/blob/main/Deep_Learning_Code%20(aboojin%20dataset).ipynb?short_path=8832860" target="_blank" rel="noopener noreferrer">View Code →</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Fine‑Tuned Chatbot (Gamino dataset)</h3>
+            <p>Domain‑adapted conversational model built with Transformers and evaluation notebooks.</p>
+            <div class="tags"><span class="tag">Transformers</span><span class="tag">Evaluation</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://github.com/gantaswethanjali/Fine-Tuning-using-Hugging-Face/blob/main/Deep_Learning_Code%20(gamino%20dataset).ipynb?short_path=3229f93" target="_blank" rel="noopener noreferrer">View Code →</a>
+            </div>
+          </article>
+          <article class="card">
+            <h3>Crowd Counting with CNN/ResNet</h3>
+            <p>Real‑time crowd analysis using density maps and performance visualisations.</p>
+            <div class="tags"><span class="tag">Computer Vision</span><span class="tag">ResNet</span><span class="tag">Python</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://github.com/gantaswethanjali/Crowd_Counting" target="_blank" rel="noopener noreferrer">View Code →</a>
+            </div>
+          </article>
+        </div>
       </div>
-      <div class="card">
-        <h3>Employee Performance & Engagement Dashboard</h3>
-        <p>HR analytics dashboard visualizing performance, training, and satisfaction metrics.</p>
-        <a href="https://public.tableau.com/views/EmployeePerformanceDashboard_17608991504230/Employee?:language=en-US&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link" target="_blank">View Dashboard →</a>
+    </section>
+
+    <section id="webapps" aria-labelledby="webapps-title">
+      <div class="container">
+        <h2 id="webapps-title">🌐 Web Applications</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Product Vendor — Data Management System</h3>
+            <p>Semantic‑web powered product data platform. Built OWL ontologies with a PostgreSQL backend for better structure and recommendations.</p>
+            <div class="tags"><span class="tag">PostgreSQL</span><span class="tag">OWL</span><span class="tag">Semantic Web</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://github.com/gantaswethanjali/product-vendor-data-management-main" target="_blank" rel="noopener noreferrer">View Project →</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <h3>FieldCraft — Sports Field Maintenance</h3>
+            <p>Interactive platform for field maintenance management with AI image analysis, animated Canvas UI, and live dashboards.</p>
+            <ul>
+              <li>AI field analysis with image input & real‑time insights.</li>
+              <li>Technician & client portals for streamlined comms.</li>
+              <li>Canvas‑based animated visuals; Chart.js metrics.</li>
+            </ul>
+            <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Canvas</span><span class="tag">Chart.js</span></div>
+            <div class="actions">
+              <a class="btn small primary" href="https://github.com/gantaswethanjali/Interactive-Ground-Field-Management-Platform" target="_blank" rel="noopener noreferrer">View Project →</a>
+              <a class="btn small ghost" href="https://github.com/gantaswethanjali/Interactive-Ground-Field-Management-Platform/blob/main/assets/video.mp4" target="_blank" rel="noopener noreferrer">Watch Demo →</a>
+            </div>
+          </article>
+        </div>
       </div>
-      <div class="card">
-        <h3>Customer Insights & Conversion Dashboard</h3>
-        <p>Designed a Tableau dashboard to analyze customer engagement, conversion, and revenue trends across marketing channels, regions, and customer segments.
-The project visualizes how Organic, Paid, Email, and Retail channels contribute to performance and highlights key KPIs like Conversion Rate, Average Order Value (AOV), and Repeat Customer Share.</p>
-        <a href="https://public.tableau.com/app/profile/swethanjali.ganta/viz/CustomerInsightsConversionDashboard/Dashboard1" target="_blank">View Dashboard →</a>
+    </section>
+
+    <section id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 id="about-title">💡 About Me</h2>
+        <div class="about">
+          <p>I’m <strong>Swethanjali Ganta</strong>, a Data Analyst with experience in AI, automation, and analytics. I hold an MSc in Artificial Intelligence & Big Data from Anglia Ruskin University and have worked with Apple and Infosys on data‑driven performance insights and automation. I love turning data into clear, actionable stories.</p>
+          <p class="pillbar" aria-label="Status">
+            <span class="pill" title="Open to work">Open to opportunities</span>
+            <span class="pill" title="UK">Cambridge, UK</span>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container">
+      <div class="footlinks">
+        <span>© <span id="year"></span> Swethanjali Ganta</span>
+        <a href="mailto:gswethanjali@gmail.com" rel="noopener noreferrer">Email</a>
+        <a href="https://www.linkedin.com/in/swethanjali-ganta-857180234/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/gantaswethanjali" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </div>
-  </section>
+  </footer>
 
-  <section>
-    <h2>🤖 AI & NLP Projects</h2>
-    <div class="projects">
-      <div class="card">
-        <h3>Fine-Tuned Chatbot (NLP)</h3>
-        <p>Built and fine-tuned a chatbot using LLaMa2 and Hugging Face pipelines to enhance user query accuracy by 30% - aboojin dataset.</p>
-        <a href="https://github.com/gantaswethanjali/Fine-Tuning-using-Hugging-Face/blob/main/Deep_Learning_Code%20(aboojin%20dataset).ipynb?short_path=8832860" target="_blank">View Code →</a>
-      </div>
-      <div class="card">
-        <h3>Fine-Tuned Chatbot (NLP)</h3>
-        <p>Built and fine-tuned a chatbot using LLaMa2 and Hugging Face pipelines - Gamino dataset.</p>
-        <a href="https://github.com/gantaswethanjali/Fine-Tuning-using-Hugging-Face/blob/main/Deep_Learning_Code%20(gamino%20dataset).ipynb?short_path=3229f93" target="_blank">View Code →</a>
-      </div>
-      <div class="card">
-        <h3>Crowd Counting Using Deep Learning</h3>
-        <p>Designed deep learning models with improved accuracy for real-time crowd analysis.</p>
-        <a href="https://github.com/gantaswethanjali/Crowd_Counting">View Code →</a>
-      </div>
-    </div>
-  </section>
-
-  <section>
-  <h2>🌐 Web Application</h2>
-  <div class="card">
-    <h3>Product Vendor – Data Management System</h3>
-    <p>Developed a web-based platform called <strong>Product Vendor</strong> for product data management and recommendation using semantic web technologies. Designed OWL ontologies and PostgreSQL backend to enhance data organization and improve recommendation accuracy.</p>
-    <a href="https://github.com/gantaswethanjali/product-vendor-data-management-main" target="_blank">View Project →</a>
-  </div>
-    <div class="card">
-    <h3>Product Vendor – Data Management System</h3>
-    <p>Developed a fully interactive web platform for sports field maintenance management. FieldCraft integrates PHP, MySQL, and JavaScript (Canvas) to deliver real-time visual effects and a seamless technician–client experience. Features include AI-powered field analysis, live dashboards, and dynamic animations that make routine maintenance engaging and data-driven.</p>
-    <p>- 🌱 AI field analysis using image input and real-time insights.
-    - ⚙️ Technician & client portals for seamless communication.
-    - 🎨 Canvas-based animated visuals for an interactive UI.
-    - 📊 Live metrics dashboard built with Chart.js.</p>
-      <a href="https://github.com/gantaswethanjali/Interactive-Ground-Field-Management-Platform" target="_blank">View Project →</a>
-      <a href="https://github.com/gantaswethanjali/Interactive-Ground-Field-Management-Platform/blob/main/assets/video.mp4" target="_blank">Watch the demo video below →</a>
-  </div>
-</section>
-
-  <section>
-    <h2>💡 About Me</h2>
-    <p>I’m Swethanjali Ganta, a Data Analyst with experience in AI, automation, and analytics. I hold an MSc in Artificial Intelligence & Big Data from Anglia Ruskin University and have worked with Apple and Infosys on data-driven performance insights and automation. I love transforming data into clear, actionable stories.</p>
-  </section>
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
